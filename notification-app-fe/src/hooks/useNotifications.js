@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { fetchNotifications } from "../api/notifications";
 import { sortNotifications } from "../utils/priority";
 
-export function useNotifications(page = 1, filter = "All") {
+export function useNotifications(page = 1, filter = "All", limit = 20) {
   const [notifications, setNotifications] = useState([]);
-  const [topNotifications, setTopNotifications] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -16,7 +15,7 @@ export function useNotifications(page = 1, filter = "All") {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetchNotifications(page, 20, filter);
+        const res = await fetchNotifications(page, limit, filter);
         if (!active) return;
 
         const rawNotifications = res?.data?.notifications || res?.notifications || [];
@@ -27,9 +26,6 @@ export function useNotifications(page = 1, filter = "All") {
         setNotifications(sorted);
         setTotal(pagination.total_records || sorted.length);
         setTotalPages(pagination.total_pages || 1);
-        
-        // Extract top 10 highest priority notifications from the current list
-        setTopNotifications(sorted.slice(0, 10));
       } catch (err) {
         if (active) {
           setError(err.message || "Failed to fetch notifications");
@@ -45,11 +41,10 @@ export function useNotifications(page = 1, filter = "All") {
     return () => {
       active = false;
     };
-  }, [page, filter]);
+  }, [page, filter, limit]);
 
   return {
     notifications,
-    topNotifications,
     total,
     totalPages,
     loading,

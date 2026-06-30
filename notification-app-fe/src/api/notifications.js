@@ -15,11 +15,11 @@ export async function logToMiddleware(event, status, details = {}) {
       })
     });
   } catch (err) {
-    // Silently ignore logging failures to prevent application crashes
+    // Silently ignore logging failures
   }
 }
 
-export async function fetchNotifications(page = 1, limit = 20, type = null) {
+export async function fetchNotifications(page = 1, limit = 20, notificationType = null) {
   const token = localStorage.getItem("token");
   const headers = {
     "Accept": "application/json",
@@ -27,11 +27,11 @@ export async function fetchNotifications(page = 1, limit = 20, type = null) {
   };
 
   let url = `/evaluation-service/notifications?page=${page}&limit=${limit}`;
-  if (type && type.toLowerCase() !== "all") {
-    url += `&type=${type.toLowerCase()}`;
+  if (notificationType && notificationType.toLowerCase() !== "all") {
+    url += `&notification_type=${notificationType.toLowerCase()}`;
   }
 
-  await logToMiddleware("API_CALL_FETCH_NOTIFICATIONS", "PENDING", { page, limit, type });
+  await logToMiddleware("API_CALL_FETCH_NOTIFICATIONS", "PENDING", { page, limit, notificationType });
 
   try {
     const response = await fetch(url, {
