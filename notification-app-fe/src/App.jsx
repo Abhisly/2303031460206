@@ -279,118 +279,147 @@ function AuthPage({ onLoginSuccess }) {
 
   return (
     <div className="auth-shell">
-      <div className="auth-card">
-        <div className="auth-brand">
-          <Logo />
-          <span className="auth-tagline">NOTIFICATION HUB</span>
+      {/* Left Column - Editorial Hero Content */}
+      <div className="auth-hero">
+        <div className="auth-hero-content">
+          <div className="auth-hero-badge">Campus Notify Platform</div>
+          <h1 className="auth-hero-heading">
+            The central hub for academic updates & career placements.
+          </h1>
+          <p className="auth-hero-subtext">
+            Stay informed with real-time official announcements, event schedules, and direct recruitment pathways from top recruiters.
+          </p>
+          
+          <div className="auth-hero-footer">
+            <div className="hero-stat-pill">
+              <span className="hero-stat-num">100%</span>
+              <span className="hero-stat-label">Placement Transparency</span>
+            </div>
+            <div className="hero-stat-pill">
+              <span className="hero-stat-num">Realtime</span>
+              <span className="hero-stat-label">Push Broadcasting</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div className="portal-selector">
-          <button
-            className={`portal-btn ${activeTab.startsWith("student") ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("student_login");
-              setError("");
-            }}
-          >
-            Student Feed
-          </button>
-          <button
-            className={`portal-btn ${activeTab === "hr_login" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("hr_login");
-              setError("");
-            }}
-          >
-            HR / Placement
-          </button>
-        </div>
+      {/* Right Column - Cardless Floating Form Container */}
+      <div className="auth-form-container">
+        <div className="auth-form-inner">
+          <div className="auth-brand-mobile">
+            <Logo />
+            <span className="auth-tagline">NOTIFICATION HUB</span>
+          </div>
 
-        <h2 className="auth-title">
-          {activeTab === "student_signup" && "Create Student Profile"}
-          {activeTab === "student_login" && "Student Login"}
-          {activeTab === "hr_login" && "HR Portal"}
-        </h2>
-        <p className="auth-sub">
-          {activeTab === "student_signup" && "Register to receive academic and job updates."}
-          {activeTab === "student_login" && "Enter your credentials to continue."}
-          {activeTab === "hr_login" && "Broadcast notifications and monitor metrics."}
-        </p>
-
-        {activeTab === "hr_login" && (
-          <div className="demo-strip">
-            <span className="demo-label">HR / Admin Account Demo</span>
-            <div className="demo-cred">Email: hr123@gmail.com</div>
-            <div className="demo-cred">Password: hrpass@123</div>
-            <button type="button" className="demo-btn" onClick={handleUseDemoHR}>
-              Apply Demo Credentials
+          <div className="portal-selector">
+            <button
+              className={`portal-btn ${activeTab.startsWith("student") ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("student_login");
+                setError("");
+              }}
+            >
+              Student Portal
+            </button>
+            <button
+              className={`portal-btn ${activeTab === "hr_login" ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("hr_login");
+                setError("");
+              }}
+            >
+              HR / Placement
             </button>
           </div>
-        )}
 
-        <form onSubmit={handleSubmit}>
-          {activeTab === "student_signup" && (
-            <div className="form-group">
-              <label className="form-label">Full Name</label>
-              <input
-                type="text"
-                className="form-input"
-                placeholder="Jane Doe"
-                required
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
+          <h2 className="auth-title">
+            {activeTab === "student_signup" && "Create Student Profile"}
+            {activeTab === "student_login" && "Student Login"}
+            {activeTab === "hr_login" && "HR Portal"}
+          </h2>
+          <p className="auth-sub">
+            {activeTab === "student_signup" && "Register to receive academic and job updates."}
+            {activeTab === "student_login" && "Enter your credentials to continue."}
+            {activeTab === "hr_login" && "Broadcast notifications and monitor metrics."}
+          </p>
+
+          {activeTab === "hr_login" && (
+            <div className="demo-strip">
+              <span className="demo-label">HR / Admin Account Demo</span>
+              <div className="demo-cred-row">
+                <span className="demo-cred-pill">Email: hr123@gmail.com</span>
+                <span className="demo-cred-pill">Password: hrpass@123</span>
+              </div>
+              <button type="button" className="demo-btn" onClick={handleUseDemoHR}>
+                Apply Demo Credentials
+              </button>
             </div>
           )}
 
-          <div className="form-group">
-            <label className="form-label">Email Address</label>
-            <input
-              type="email"
-              className="form-input"
-              placeholder="jane@university.edu"
-              required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            {activeTab === "student_signup" && (
+              <div className="form-group">
+                <label className="form-label">Full Name</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  placeholder="Jane Doe"
+                  required
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+              </div>
+            )}
 
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-input"
-              placeholder="••••••••"
-              required
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </div>
+            <div className="form-group">
+              <label className="form-label">Email Address</label>
+              <input
+                type="email"
+                className="form-input"
+                placeholder="jane@university.edu"
+                required
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+            </div>
 
-          {error && <div className="form-error">{error}</div>}
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                className="form-input"
+                placeholder="••••••••"
+                required
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+            </div>
 
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? "Authenticating..." : activeTab === "student_signup" ? "Sign Up" : "Sign In"}
-          </button>
-        </form>
+            {error && <div className="form-error">{error}</div>}
 
-        <div className="auth-switch">
-          {activeTab === "student_login" && (
-            <span>
-              Create a student account?{" "}
-              <span onClick={() => { setActiveTab("student_signup"); setError(""); }}>
-                Register here
+            <button type="submit" className="btn-primary" disabled={loading}>
+              {loading ? "Authenticating..." : activeTab === "student_signup" ? "Sign Up" : "Sign In"}
+            </button>
+          </form>
+
+          <div className="auth-switch">
+            {activeTab === "student_login" && (
+              <span>
+                Create a student account?{" "}
+                <span onClick={() => { setActiveTab("student_signup"); setError(""); }}>
+                  Register here
+                </span>
               </span>
-            </span>
-          )}
-          {activeTab === "student_signup" && (
-            <span>
-              Already have an account?{" "}
-              <span onClick={() => { setActiveTab("student_login"); setError(""); }}>
-                Log in
+            )}
+            {activeTab === "student_signup" && (
+              <span>
+                Already have an account?{" "}
+                <span onClick={() => { setActiveTab("student_login"); setError(""); }}>
+                  Log in
+                </span>
               </span>
-            </span>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
