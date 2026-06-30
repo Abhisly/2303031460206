@@ -279,59 +279,37 @@ function AuthPage({ onLoginSuccess }) {
 
   return (
     <div className="auth-shell">
-      {/* Left Column - Editorial Hero Content */}
-      <div className="auth-hero">
-        <div className="auth-hero-content">
-          <div className="auth-hero-badge">Campus Notify Platform</div>
-          <h1 className="auth-hero-heading">
-            The central hub for academic updates & career placements.
-          </h1>
-          <p className="auth-hero-subtext">
-            Stay informed with real-time official announcements, event schedules, and direct recruitment pathways from top recruiters.
-          </p>
-          
-          <div className="auth-hero-footer">
-            <div className="hero-stat-pill">
-              <span className="hero-stat-num">100%</span>
-              <span className="hero-stat-label">Placement Transparency</span>
-            </div>
-            <div className="hero-stat-pill">
-              <span className="hero-stat-num">Realtime</span>
-              <span className="hero-stat-label">Push Broadcasting</span>
-            </div>
-          </div>
+      {/* Subtle background glow */}
+      <div className="auth-glow-bg" />
+
+      <div className="auth-container">
+        <div className="auth-header">
+          <Logo />
+          <span className="auth-tagline">NOTIFICATION HUB</span>
         </div>
-      </div>
 
-      {/* Right Column - Cardless Floating Form Container */}
-      <div className="auth-form-container">
-        <div className="auth-form-inner">
-          <div className="auth-brand-mobile">
-            <Logo />
-            <span className="auth-tagline">NOTIFICATION HUB</span>
-          </div>
+        <div className="auth-tabs">
+          <button
+            className={`auth-tab-btn ${activeTab.startsWith("student") ? "active" : ""}`}
+            onClick={() => {
+              setActiveTab("student_login");
+              setError("");
+            }}
+          >
+            Student Portal
+          </button>
+          <button
+            className={`auth-tab-btn ${activeTab === "hr_login" ? "active" : ""}`}
+            onClick={() => {
+              setActiveTab("hr_login");
+              setError("");
+            }}
+          >
+            HR / Placement
+          </button>
+        </div>
 
-          <div className="portal-selector">
-            <button
-              className={`portal-btn ${activeTab.startsWith("student") ? "active" : ""}`}
-              onClick={() => {
-                setActiveTab("student_login");
-                setError("");
-              }}
-            >
-              Student Portal
-            </button>
-            <button
-              className={`portal-btn ${activeTab === "hr_login" ? "active" : ""}`}
-              onClick={() => {
-                setActiveTab("hr_login");
-                setError("");
-              }}
-            >
-              HR / Placement
-            </button>
-          </div>
-
+        <div className="auth-body">
           <h2 className="auth-title">
             {activeTab === "student_signup" && "Create Student Profile"}
             {activeTab === "student_login" && "Student Login"}
@@ -356,7 +334,7 @@ function AuthPage({ onLoginSuccess }) {
             </div>
           )}
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="auth-form">
             {activeTab === "student_signup" && (
               <div className="form-group">
                 <label className="form-label">Full Name</label>
