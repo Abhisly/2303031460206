@@ -47,14 +47,14 @@ export function NotificationCard({ notification }) {
       }}
     >
       <CardContent>
-        <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={1}>
-          <Box display="flex" alignItems="center" gap={1}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             {getIcon()}
             <Typography variant="subtitle1" fontWeight={700}>
               {title}
             </Typography>
           </Box>
-          <Box display="flex" gap={1}>
+          <Box sx={{ display: "flex", gap: 1 }}>
             <Chip 
               label={type?.toUpperCase()} 
               size="small" 
@@ -84,7 +84,7 @@ export function NotificationCard({ notification }) {
             }}
           >
             {Object.entries(payload).map(([key, value]) => (
-              <Box key={key} display="flex" gap={1} mb={0.5}>
+              <Box key={key} sx={{ display: "flex", gap: 1, mb: 0.5 }}>
                 <Typography variant="caption" fontWeight="bold" sx={{ textTransform: "capitalize" }}>
                   {key.replace(/_/g, " ")}:
                 </Typography>
@@ -94,7 +94,7 @@ export function NotificationCard({ notification }) {
           </Box>
         )}
 
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Typography variant="caption" color="text.secondary">
             {dateStr}
           </Typography>

@@ -113,7 +113,7 @@ export function NotificationsPage() {
           </Box>
 
           {allLoading && (
-            <Box display="flex" justifyContent="center" py={8}>
+            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
               <CircularProgress />
             </Box>
           )}
@@ -145,7 +145,7 @@ export function NotificationsPage() {
           )}
 
           {!allLoading && !allError && allTotalPages > 1 && (
-            <Box display="flex" justifyContent="center" mt={4}>
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
               <Pagination
                 count={allTotalPages}
                 page={page}
@@ -182,7 +182,7 @@ export function NotificationsPage() {
           </Box>
 
           {priorityLoading && (
-            <Box display="flex" justifyContent="center" py={8}>
+            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
               <CircularProgress />
             </Box>
           )}
