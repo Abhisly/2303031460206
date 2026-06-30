@@ -1,20 +1,58 @@
 import { useState, useEffect } from "react";
-import { fetchNotifications } from "../apis/notifications";
+import { fetchNotifications } from "../api/notifications";
+import { sortNotifications } from "../utils/priority";
 
-export function useNotifications() {
+export function useNotifications(page = 1, filter = "All") {
   const [notifications, setNotifications] = useState([]);
+  const [topNotifications, setTopNotifications] = useState([]);
   const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    let active = true;
     const load = async () => {
-      const data = await fetchNotifications();
-      setNotifications(data.notifications ?? []);
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetchNotifications(page, 20, filter);
+        if (!active) return;
+
+        const rawNotifications = res?.data?.notifications || res?.notifications || [];
+        const pagination = res?.data?.pagination || res?.pagination || {};
+
+        const sorted = sortNotifications(rawNotifications);
+
+        setNotifications(sorted);
+        setTotal(pagination.total_records || sorted.length);
+        setTotalPages(pagination.total_pages || 1);
+        
+        // Extract top 10 highest priority notifications from the current list
+        setTopNotifications(sorted.slice(0, 10));
+      } catch (err) {
+        if (active) {
+          setError(err.message || "Failed to fetch notifications");
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
     };
 
     load();
-  }, [notifications]);
+    return () => {
+      active = false;
+    };
+  }, [page, filter]);
 
-  const totalPages = 0;
-
-  return { notifications, total, totalPages, loading: false, error: true };
+  return {
+    notifications,
+    topNotifications,
+    total,
+    totalPages,
+    loading,
+    error
+  };
 }
